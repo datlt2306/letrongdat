@@ -2,16 +2,16 @@
 layout: home
 
 hero:
-    name: Polytuts
-    text: Học lập trình từ cơ bản đến nâng cao
-    tagline: Nền tảng học tập tương tác cho các nhà phát triển web
+    name: Lê Trọng Đạt
+    text: Học lập trình dễ dàng và hiệu quả cùng Thầy nhé
+    tagline: Nền tảng học tập tương tác giúp các em nắm vững kiến thức lập trình từ cơ bản đến nâng cao
     actions:
         - theme: brand
           text: Bắt đầu ngay
           link: /nodejs/
         - theme: alt
           text: Xem GitHub
-          link: https://github.com/datlt2306/fpl-WEB503
+          link: https://github.com/datlt2306
 
 features:
     - icon: 🚀
