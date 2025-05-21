@@ -1,14 +1,48 @@
-# Giới thiệu về Node.js
+# Giới thiệu về khóa học Node.js/MongoDB
 
-Node.js là một môi trường thực thi JavaScript xây dựng trên JavaScript Engine V8 của Chrome. Node.js cho phép chạy JavaScript bên ngoài trình duyệt, đặc biệt là phát triển ứng dụng phía máy chủ.
+Chào mừng các em đến với khóa học Node.js/Express cơ bản! 👨‍🏫
 
-## Tính năng chính của Node.js
+Khóa học này sẽ giúp các em:
 
--   **Non-blocking I/O**: Xử lý bất đồng bộ giúp tối ưu hiệu suất
--   **Event-driven**: Kiến trúc dựa trên sự kiện
--   **JavaScript Everywhere**: Sử dụng cùng một ngôn ngữ cho cả frontend và backend
--   **NPM**: Hệ sinh thái package lớn nhất thế giới
--   **Lightweight & Efficient**: Tiêu thụ ít tài nguyên
+-   Hiểu rõ bản chất Node.js, lý do nên học và ứng dụng thực tế.
+-   Thành thạo các bước thiết lập môi trường, khởi tạo dự án backend hiện đại.
+-   Làm quen với các công cụ phổ biến như Babel, dotenv, pnpm, Postman...
+-   Xây dựng API đầu tiên với Express, tổ chức code khoa học, dễ mở rộng.
+-   So sánh Node.js với các công nghệ backend truyền thống để chọn hướng đi phù hợp.
+
+## Giới thiệu Nodejs
+
+### Node.js là gì?
+
+Node.js là một nền tảng (runtime) giúp chạy JavaScript ở phía server, không chỉ trong trình duyệt. Nhờ Node.js, các em có thể dùng JavaScript để xây dựng các ứng dụng web, API, real-time chat, và nhiều loại ứng dụng khác. Node.js ra đời năm 2009 bởi Ryan Dahl, nhằm giải quyết bài toán hiệu năng và xử lý nhiều kết nối cùng lúc mà các nền tảng truyền thống gặp khó khăn.
+
+### Tại sao nên học và sử dụng Node.js?
+
+-   Cho phép dùng chung một ngôn ngữ (JavaScript) ở cả frontend và backend, giúp học nhanh, làm việc hiệu quả.
+-   Xử lý bất đồng bộ (asynchronous) rất tốt, phù hợp cho các ứng dụng cần hiệu năng cao, nhiều kết nối cùng lúc (chat, game, API...)
+-   Có hệ sinh thái thư viện (npm) cực kỳ phong phú, dễ mở rộng.
+-   Được nhiều công ty lớn sử dụng (Netflix, LinkedIn, Uber...)
+-   Dễ học nếu đã biết JavaScript, lương và nhu cầu tuyển dụng cao.
+
+### So sánh Node.js với PHP
+
+| Tiêu chí          | Node.js                       | PHP                           |
+| ----------------- | ----------------------------- | ----------------------------- |
+| Ngôn ngữ          | JavaScript                    | PHP                           |
+| Kiểu xử lý        | Bất đồng bộ (asynchronous)    | Đa phần đồng bộ (synchronous) |
+| Hiệu năng         | Cao với ứng dụng real-time    | Tốt cho web truyền thống      |
+| Hệ sinh thái      | npm (rất lớn, hiện đại)       | Composer (lớn, truyền thống)  |
+| Học tập           | Dễ nếu đã biết JS             | Dễ bắt đầu cho web            |
+| Ứng dụng phổ biến | API, chat, game, microservice | Website, CMS (WordPress...)   |
+
+Tóm lại, Node.js rất phù hợp cho các ứng dụng hiện đại, cần tốc độ và khả năng mở rộng, còn PHP vẫn mạnh ở mảng web truyền thống, blog, CMS.
+
+### Khi nào nên chọn Node.js?
+
+-   Khi làm API, chat, game, ứng dụng cần nhiều kết nối đồng thời.
+-   Khi muốn dùng chung một ngôn ngữ cho cả frontend và backend.
+-   Khi cần tốc độ phát triển nhanh, nhiều thư viện hỗ trợ.
+-   Khi xây dựng các hệ thống microservice hoặc real-time.
 
 ## Chuẩn bị cho khóa học Node.js
 
@@ -17,24 +51,3 @@ Node.js là một môi trường thực thi JavaScript xây dựng trên JavaScr
 -   JavaScript ES6+
 -   Hiểu biết cơ bản về networking và HTTP
 -   Cơ sở dữ liệu
-
-## Nội dung sắp có
-
-Khóa học Node.js đang được phát triển và sẽ có sẵn trong thời gian tới.
-
-<div class="coming-soon">
-  <!-- <img src="/images/nodejs-logo.png" alt="Node.js Logo" style="width: 100px; height: auto;"> -->
-  <p>Nội dung đang được chuẩn bị...</p>
-</div>
-
-<style>
-.coming-soon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 2rem 0;
-  padding: 2rem;
-  background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
-}
-</style>
