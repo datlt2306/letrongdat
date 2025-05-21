@@ -231,15 +231,11 @@ Nhập prompt sau:
     -   Mô tả dữ liệu trả về (nếu có).
     -   Biến môi trường `host` được thiết lập để dễ dàng thay đổi URL gốc.
 
-### 4.3 Import file JSON vào Postman
+### Import file JSON vào Postman
 
 1. Mở Postman và nhấn vào nút **Import** ở góc trên bên trái.
 2. Chọn tab **File** và nhấn **Upload Files**.
 3. Chọn file JSON đã export (ví dụ: `FPL-WEB503.postman_collection.json`) và nhấn **Open**.
 4. Sau khi import thành công, bạn sẽ thấy Collection xuất hiện trong Postman.
-
-### 4.4 Tạo tài liệu Markdown từ file JSON
-
-...existing content...
 
 Chúc các em học tốt! 🚀

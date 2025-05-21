@@ -1,4 +1,4 @@
-# Thực hành CRUD với MongoDB và Mongoose
+# Xây dựng CRUD API sản phẩm
 
 ## Mục tiêu
 
@@ -6,30 +6,67 @@
 -   Hiểu cách tổ chức code với models, controllers, và routers.
 -   Làm quen với cách xử lý lỗi và phản hồi trạng thái HTTP.
 
-## Yêu cầu thực hành
+## Yêu cầu
 
-### Các bước thực hiện
+1. **Tạo cấu trúc thư mục**
 
-1. **Tạo cấu trúc thư mục:**
+    - Tạo các thư mục `models`, `controllers`, và `routers` trong thư mục `src`.
+    - Tạo file `Product.js` trong thư mục `models` để định nghĩa schema và model cho sản phẩm.
+    - Tạo file `productController.js` trong thư mục `controllers` để xử lý logic CRUD.
+    - Tạo file `products.js` trong thư mục `routers` để định nghĩa các endpoint API.
 
-    ```
-    src/
-      models/
-        Product.js
-      controllers/
-        productController.js
-      routers/
-        products.js
-      app.js
-    ```
+2. **Định nghĩa schema và model cho sản phẩm**
 
-2. **Thực hiện các thao tác CRUD:**
-    - `create`: Thêm sản phẩm mới.
-    - `read`: Lấy danh sách sản phẩm hoặc chi tiết sản phẩm theo ID.
-    - `update`: Cập nhật thông tin sản phẩm.
-    - `delete`: Xóa sản phẩm.
+    - Các trường cần có:
+        - `name` (String, bắt buộc, tối đa 200 ký tự).
+        - `slug` (String, duy nhất, viết thường).
+        - `description` (String, bắt buộc).
+        - `price` (Number, bắt buộc, không âm).
+        - `discountPrice` (Number, không âm).
+        - `images` (Array of Strings).
+        - `stock` (Number, bắt buộc, không âm, mặc định là 0).
+        - `sku` (String, bắt buộc, duy nhất).
+        - `status` (Enum: `draft`, `published`, `archived`, mặc định là `draft`).
+        - `featured` (Boolean, mặc định là `false`).
+        - `ratings` (Number, từ 0 đến 5, làm tròn đến 1 chữ số thập phân).
+    - Sử dụng Mongoose để tạo model từ schema.
 
-## Hướng dẫn thực hành
+3. **Tách logic xử lý CRUD vào controller**
+
+    - Tạo các hàm xử lý trong controller:
+        - Lấy danh sách sản phẩm (`GET /api/products`).
+        - Lấy chi tiết sản phẩm theo `id` (`GET /api/products/:id`).
+        - Thêm sản phẩm mới (`POST /api/products`).
+        - Cập nhật sản phẩm theo `id` (`PUT /api/products/:id`).
+        - Xóa sản phẩm theo `id` (`DELETE /api/products/:id`).
+
+4. **Tạo router cho sản phẩm**
+
+    - Định nghĩa các endpoint CRUD trong file router.
+    - Sử dụng các hàm từ controller để xử lý logic.
+
+5. **Tích hợp router vào ứng dụng chính**
+
+    - Import router từ `src/routers/products.js` vào `src/routers/index.js`.
+    - Gắn router vào đường dẫn `/products`.
+
+6. **Kiểm tra API**
+    - Sử dụng Postman hoặc công cụ tương tự để kiểm tra các endpoint CRUD.
+
+## Hướng dẫn
+
+### Thiết lập cấu trúc thư mục
+
+```
+src/
+├── models/
+│   └── Product.js          # Định nghĩa schema và model cho sản phẩm
+├── controllers/
+│   └── productController.js # Xử lý logic CRUD cho sản phẩm
+├── routers/
+│   └── products.js         # Định nghĩa các endpoint API cho sản phẩm
+└── app.js                  # Tệp chính khởi chạy ứng dụng
+```
 
 ### Định nghĩa Schema và Model
 

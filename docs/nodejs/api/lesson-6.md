@@ -61,9 +61,52 @@ Mongoose cũng hỗ trợ validate dữ liệu, nhưng nó chỉ hoạt động 
 | **Hỗ trợ validate nâng cao**  | ✅ (nested, điều kiện, v.v.) | Hạn chế              | ✅                  |
 | **Dễ tích hợp với Express**   | ✅                           | ❌ (chỉ trong model) | ✅                  |
 
-## 3. Áp dụng Joi trong middleware
+## 3. Thực hành
 
-### 3.1 Định nghĩa middleware `validateRequest`
+### Yêu cầu
+
+1. **Thiết lập cấu trúc thư mục**
+
+    - Tạo thư mục `middleware` và `validation` trong `src`.
+    - Tạo file `validateRequest.js` (middleware) và `productValidation.js` (schema Joi).
+
+2. **Định nghĩa middleware validate dữ liệu**
+
+    - Middleware `validateRequest` kiểm tra dữ liệu từ `req.body`, `req.params`, hoặc `req.query`.
+    - Loại bỏ trường không hợp lệ (`stripUnknown`) và trả về lỗi chi tiết nếu không hợp lệ.
+
+3. **Định nghĩa schema validate bằng Joi**
+
+    - `createProductSchema`: Kiểm tra dữ liệu khi thêm sản phẩm mới.
+    - `updateProductSchema`: Kế thừa từ `createProductSchema`, các trường không bắt buộc.
+
+4. **Tích hợp middleware vào router**
+
+    - Sử dụng `validateRequest` trong `products.js`:
+        - `POST /api/products`: Dùng `createProductSchema`.
+        - `PUT /api/products/:id`: Dùng `updateProductSchema`.
+
+5. **Kiểm tra API**
+    - Dùng Postman kiểm tra các endpoint với dữ liệu hợp lệ và không hợp lệ.
+
+### Hướng dẫn
+
+#### Thiết lập cấu trúc thư mục
+
+```
+src/
+├── controllers/
+│   └── productController.js   # Xử lý logic CRUD cho sản phẩm
+├── middleware/
+│   └── validateRequest.js     # Middleware validate dữ liệu đầu vào
+├── routers/
+│   └── products.js            # Định nghĩa các endpoint API cho sản phẩm
+├── validation/
+│   └── productValidation.js   # Định nghĩa schema validate bằng Joi
+└── app.js                     # Tệp chính khởi chạy ứng dụng
+```
+
+#### Định nghĩa middleware `validateRequest`
 
 Middleware này sẽ giúp chúng ta kiểm tra dữ liệu đầu vào dựa trên schema được định nghĩa bằng Joi.
 
@@ -93,7 +136,7 @@ export const validateRequest = (schema, target = "body") => {
 };
 ```
 
-### 3.2 Tách schema validate vào file riêng
+#### Tách schema validate vào file riêng
 
 Để code gọn gàng và dễ bảo trì, chúng ta sẽ tách `createProductSchema` và `updateProductSchema` vào một file riêng.
 
@@ -141,7 +184,7 @@ export const updateProductSchema = createProductSchema.fork(
 );
 ```
 
-### 3.3 Sử dụng schema và controller trong router
+#### Sử dụng schema và controller trong router
 
 Cập nhật router để sử dụng `createProductSchema` và `updateProductSchema`.
 

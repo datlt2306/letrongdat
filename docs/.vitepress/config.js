@@ -131,12 +131,12 @@ export default {
                             link: "/nodejs/api/lesson-2",
                         },
                         {
-                            text: "3. Thực hành CRUD với dữ liệu giả",
+                            text: "3. Xây dựng CRUD với dữ liệu giả",
                             link: "/nodejs/api/lesson-3",
                         },
                         { text: "4. Giới thiệu MongoDB", link: "/nodejs/api/lesson-4" },
                         {
-                            text: "5. Thực hành CRUD với MongoDB",
+                            text: "5. Xây dựng CRUD với MongoDB",
                             link: "/nodejs/api/lesson-5",
                         },
                         {

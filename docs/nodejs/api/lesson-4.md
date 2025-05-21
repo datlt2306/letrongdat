@@ -203,13 +203,43 @@ Mongoose là một thư viện Node.js giúp làm việc với MongoDB dễ dàn
     });
     ```
 
-## Thực hành CRUD bài viết với Mongoose
+## Thực hành
+
+### Yêu cầu
+
+1. **Tạo model cho bài viết**
+
+    - Định nghĩa schema cho bài viết với các trường: `title` (String, bắt buộc), `content` (String, bắt buộc).
+    - Sử dụng Mongoose để tạo model từ schema.
+
+2. **Tách logic xử lý CRUD vào controller**
+
+    - Tạo các hàm xử lý trong controller:
+        - Lấy danh sách bài viết (`GET /api/posts`).
+        - Lấy chi tiết bài viết theo `id` (`GET /api/posts/:id`).
+        - Thêm bài viết mới (`POST /api/posts`).
+        - Cập nhật bài viết theo `id` (`PUT /api/posts/:id`).
+        - Xóa bài viết theo `id` (`DELETE /api/posts/:id`).
+
+3. **Tạo router cho bài viết**
+
+    - Định nghĩa các endpoint CRUD trong file router.
+    - Sử dụng các hàm từ controller để xử lý logic.
+
+4. **Tích hợp router vào ứng dụng chính**
+
+    - Import router vào file `routers/index.js` và cấu hình đường dẫn `/posts`.
+    - Sử dụng router trong ứng dụng chính (`src/app.js`).
+
+5. **Kiểm tra API**
+    - Sử dụng Postman hoặc công cụ tương tự để kiểm tra các endpoint CRUD.
 
 ### Tạo model cho bài viết
 
 **src/models/Post.js**
 
 ```javascript
+// filepath: /Users/ken/Folders/Projects/polytuts-5/src/models/Post.js
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema(
@@ -227,14 +257,10 @@ export default Post;
 
 ### Tách Controller để quản lý logic
 
-Để code gọn gàng và dễ bảo trì, chúng ta nên tách logic xử lý ra khỏi router và đặt vào các file controller. Dưới đây là hướng dẫn tách controller cho bài viết (Post).
-
-#### Tạo file controller
-
 **src/controllers/postController.js**
 
 ```javascript
-// filepath: /FPL-WEB503/src/controllers/postController.js
+// filepath: /Users/ken/Folders/Projects/polytuts-5/src/controllers/postController.js
 import Post from "../models/Post";
 
 // Lấy danh sách bài viết
@@ -303,7 +329,7 @@ export const deletePost = async (req, res) => {
 **src/routers/posts.js**
 
 ```javascript
-// filepath: /FPL-WEB503/src/routers/posts.js
+// filepath: /Users/ken/Folders/Projects/polytuts-5/src/routers/posts.js
 import { Router } from "express";
 import {
     getPosts,
@@ -335,12 +361,10 @@ export default routePost;
 
 ### Import router vào file `routers/index.js`
 
-Để sử dụng các router đã tạo, bạn cần import chúng vào file `routers/index.js` và cấu hình như sau:
-
 **src/routers/index.js**
 
 ```javascript
-// filepath: /FPL-WEB503/src/routers/index.js
+// filepath: /Users/ken/Folders/Projects/polytuts-5/src/routers/index.js
 import { Router } from "express";
 import routePost from "./posts";
 
@@ -351,23 +375,6 @@ router.use("/posts", routePost);
 
 export default router;
 ```
-
-### Lý do về việc tách pattern models, controller, router
-
--   **Tách models:**  
-    Models chịu trách nhiệm định nghĩa cấu trúc dữ liệu và tương tác trực tiếp với cơ sở dữ liệu. Điều này giúp bạn dễ dàng quản lý và mở rộng các schema khi cần.
-
--   **Tách controller:**  
-    Controller tập trung xử lý logic nghiệp vụ, giúp code gọn gàng và dễ bảo trì. Controller không cần biết chi tiết về router, chỉ cần thực hiện các thao tác cần thiết với dữ liệu.
-
--   **Tách router:**  
-    Router chỉ định nghĩa các endpoint và ánh xạ chúng đến các hàm trong controller. Điều này giúp bạn dễ dàng quản lý các route và mở rộng API khi cần.
-
--   **Ưu điểm của việc tách pattern:**
-    -   **Dễ bảo trì:** Mỗi phần có trách nhiệm riêng, giúp dễ dàng sửa lỗi hoặc thêm tính năng mới.
-    -   **Tái sử dụng:** Logic trong controller hoặc models có thể được tái sử dụng ở nhiều nơi.
-    -   **Mở rộng dễ dàng:** Khi dự án lớn hơn, bạn có thể thêm nhiều models, controller, hoặc router mà không làm rối code.
-    -   **Tổ chức rõ ràng:** Code được tổ chức theo pattern rõ ràng, giúp đội ngũ phát triển dễ dàng làm việc cùng nhau.
 
 ## Kết luận
 

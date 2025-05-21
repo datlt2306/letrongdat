@@ -129,19 +129,16 @@ Script này giúp các em chỉ cần chạy `pnpm run dev` là server sẽ tự
 
 ### 6. Thiết lập cấu trúc thư mục
 
-Chia nhỏ code thành nhiều file giúp dễ quản lý, mở rộng, bảo trì.  
-Các em tạo các thư mục và file như sau:
-
 ```
 src/
-  app.js
-  routers/
-    index.js
-    posts.js
-note/
-.babelrc
-.env
-.gitignore
+├── app.js                  # Tệp chính khởi chạy ứng dụng
+├── routers/                # Chứa các file định nghĩa route
+│   ├── index.js            # Router chính, tập hợp các router con
+│   └── posts.js            # Router cho bài viết
+├── note/                   # Thư mục lưu ghi chú hoặc tài liệu
+├── .babelrc                # Cấu hình Babel
+├── .env                    # Lưu thông tin biến môi trường
+└── .gitignore              # Định nghĩa các file/thư mục cần bỏ qua khi đẩy lên Git
 ```
 
 -   `.babelrc` là file cấu hình cho Babel, giúp dự án hiểu và chuyển đổi cú pháp JavaScript hiện đại sang dạng Node.js có thể chạy được.
