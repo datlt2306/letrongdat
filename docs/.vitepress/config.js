@@ -236,6 +236,7 @@ export default {
             prev: "Bài trước",
             next: "Bài tiếp theo",
         },
+        outline: [2, 3], // Hiển thị các tiêu đề từ cấp 2 (##) đến cấp 3 (###)
     },
     markdown: {
         lineNumbers: true,
