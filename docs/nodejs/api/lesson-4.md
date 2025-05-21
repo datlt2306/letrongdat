@@ -1,4 +1,4 @@
-# Buổi 4: Giới thiệu MongoDB và các khái niệm cơ bản
+# Giới thiệu MongoDB và các khái niệm cơ bản
 
 ## Mục tiêu
 
@@ -7,9 +7,7 @@
 -   Làm quen với các khái niệm quan trọng trong MongoDB.
 -   Chuẩn bị môi trường để làm việc với MongoDB.
 
----
-
-## 1. MongoDB là gì?
+## Giới thiệu MongoDB
 
 MongoDB là một cơ sở dữ liệu NoSQL mã nguồn mở, được thiết kế để lưu trữ dữ liệu dưới dạng JSON-like (BSON). Nó được sử dụng rộng rãi trong các ứng dụng hiện đại nhờ khả năng mở rộng linh hoạt và hiệu năng cao.
 
@@ -28,9 +26,7 @@ MongoDB là một cơ sở dữ liệu NoSQL mã nguồn mở, được thiết 
 -   Khi cần xử lý dữ liệu lớn hoặc real-time.
 -   Khi không cần mối quan hệ phức tạp giữa các dữ liệu.
 
----
-
-## 2. Sự khác nhau giữa NoSQL và SQL
+### Sự khác nhau giữa NoSQL và SQL
 
 | Tiêu chí              | SQL (Cơ sở dữ liệu quan hệ)            | NoSQL (Cơ sở dữ liệu phi quan hệ)       |
 | --------------------- | -------------------------------------- | --------------------------------------- |
@@ -41,21 +37,19 @@ MongoDB là một cơ sở dữ liệu NoSQL mã nguồn mở, được thiết 
 | **Khả năng mở rộng**  | Theo chiều dọc (vertical scaling)      | Theo chiều ngang (horizontal scaling)   |
 | **Ứng dụng phổ biến** | Hệ thống tài chính, ERP, CRM           | Ứng dụng web, IoT, big data, real-time  |
 
----
+### Các khái niệm cơ bản trong MongoDB
 
-## 3. Các khái niệm cơ bản trong MongoDB
-
-### 3.1 Database (Cơ sở dữ liệu)
+**_Database (Cơ sở dữ liệu)_**
 
 -   Là nơi lưu trữ các collection.
 -   Một MongoDB server có thể chứa nhiều database.
 
-### 3.2 Collection (Bộ sưu tập)
+**_Collection (Bộ sưu tập)_**
 
 -   Tương tự như bảng (table) trong SQL.
 -   Chứa các document, không yêu cầu schema cố định.
 
-### 3.3 Document (Tài liệu)
+**_Document (Tài liệu)_**
 
 -   Tương tự như một hàng (row) trong SQL.
 -   Dữ liệu được lưu trữ dưới dạng JSON-like (BSON).
@@ -71,21 +65,17 @@ MongoDB là một cơ sở dữ liệu NoSQL mã nguồn mở, được thiết 
 }
 ```
 
-### 3.4 `_id` (Định danh duy nhất)
+**_`_id` (Định danh duy nhất)_**
 
 -   Mỗi document trong MongoDB đều có một trường `_id` duy nhất.
 -   Nếu không cung cấp `_id`, MongoDB sẽ tự động tạo.
 
-### 3.5 BSON (Binary JSON)
+**_### BSON (Binary JSON)_**
 
 -   Là định dạng nhị phân của JSON, được MongoDB sử dụng để lưu trữ dữ liệu.
 -   Hỗ trợ nhiều kiểu dữ liệu hơn JSON, như `Date`, `ObjectId`.
 
----
-
-## 4. Chuẩn bị môi trường làm việc với MongoDB
-
-### 4.1 Cài đặt MongoDB
+## Cài đặt MongoDB
 
 1. Truy cập [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) để tải MongoDB Community Edition.
 2. Cài đặt theo hướng dẫn trên trang web.
@@ -94,26 +84,24 @@ MongoDB là một cơ sở dữ liệu NoSQL mã nguồn mở, được thiết 
     mongod --version
     ```
 
-### 4.2 Sử dụng MongoDB Atlas (Cloud)
+### Sử dụng MongoDB Atlas (Cloud)
 
 1. Truy cập [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas) và tạo tài khoản.
 2. Tạo một cluster miễn phí.
 3. Kết nối cluster với ứng dụng bằng URI (ví dụ: `mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority`).
 
-### 4.3 Cài đặt MongoDB Compass (GUI)
+### Cài đặt MongoDB Compass (GUI)
 
 -   MongoDB Compass là công cụ GUI giúp quản lý và truy vấn dữ liệu MongoDB dễ dàng.
 -   Tải về tại [https://www.mongodb.com/products/compass](https://www.mongodb.com/products/compass).
 
----
+## Giới thiệu về Mongoose
 
-## 5. Giới thiệu về Mongoose
-
-### 5.1 Mongoose là gì?
+### Mongoose là gì?
 
 Mongoose là một thư viện Node.js giúp làm việc với MongoDB dễ dàng hơn. Nó cung cấp một lớp trừu tượng (abstraction layer) để tương tác với MongoDB, cho phép bạn định nghĩa schema, thực hiện các thao tác CRUD, và quản lý dữ liệu một cách hiệu quả.
 
-### 5.2 Tại sao sử dụng Mongoose?
+### Tại sao sử dụng Mongoose?
 
 -   **Định nghĩa schema:**  
     Schema giúp bạn định nghĩa cấu trúc dữ liệu rõ ràng, kiểm soát các trường dữ liệu và kiểu dữ liệu.
@@ -164,12 +152,64 @@ Mongoose là một thư viện Node.js giúp làm việc với MongoDB dễ dàn
 -   **Tích hợp tốt với Node.js:**  
     Mongoose dễ dàng tích hợp vào các ứng dụng Node.js/Express, giúp bạn quản lý dữ liệu hiệu quả.
 
-### 5.3 Định nghĩa Schema và Model
+## Cài đặt Mongoose và kết nối DB
+
+1. Cài đặt Mongoose bằng lệnh:
+
+    ```bash
+    pnpm i mongoose
+    ```
+
+2. Kết nối Mongoose với MongoDB trong ứng dụng Node.js. Ví dụ:
+
+    **src/database.js**
+
+    ```javascript
+    import mongoose from "mongoose";
+
+    const connectDB = async () => {
+        try {
+            await mongoose.connect(process.env.MONGO_URI, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            });
+            console.log("Kết nối MongoDB thành công!");
+        } catch (err) {
+            console.error("Lỗi kết nối MongoDB:", err.message);
+            process.exit(1);
+        }
+    };
+
+    export default connectDB;
+    ```
+
+3. Sử dụng kết nối trong ứng dụng chính:
+
+    **src/app.js**
+
+    ```javascript
+    import express from "express";
+    import dotenv from "dotenv";
+    import connectDB from "./database";
+
+    dotenv.config();
+    connectDB();
+
+    const app = express();
+    app.use(express.json());
+
+    app.listen(process.env.PORT, () => {
+        console.log(`Server is running on port ${process.env.PORT}`);
+    });
+    ```
+
+## Thực hành CRUD bài viết với Mongoose
+
+### Tạo model cho bài viết
 
 **src/models/Post.js**
 
 ```javascript
-// filepath: /FPL-WEB503/src/models/Post.js
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema(
@@ -185,9 +225,7 @@ const Post = mongoose.model("Post", postSchema);
 export default Post;
 ```
 
----
-
-### 5.4 Tách Controller để quản lý logic
+### Tách Controller để quản lý logic
 
 Để code gọn gàng và dễ bảo trì, chúng ta nên tách logic xử lý ra khỏi router và đặt vào các file controller. Dưới đây là hướng dẫn tách controller cho bài viết (Post).
 
@@ -260,9 +298,7 @@ export const deletePost = async (req, res) => {
 };
 ```
 
----
-
-### 5.5 Sử dụng Controller trong Router
+### Sử dụng Controller trong Router
 
 **src/routers/posts.js**
 
@@ -297,7 +333,24 @@ routePost.delete("/:id", deletePost);
 export default routePost;
 ```
 
----
+### Import router vào file `routers/index.js`
+
+Để sử dụng các router đã tạo, bạn cần import chúng vào file `routers/index.js` và cấu hình như sau:
+
+**src/routers/index.js**
+
+```javascript
+// filepath: /FPL-WEB503/src/routers/index.js
+import { Router } from "express";
+import routePost from "./posts";
+
+const router = Router();
+
+// Sử dụng router cho bài viết
+router.use("/posts", routePost);
+
+export default router;
+```
 
 ### Lý do về việc tách pattern models, controller, router
 
@@ -316,58 +369,7 @@ export default routePost;
     -   **Mở rộng dễ dàng:** Khi dự án lớn hơn, bạn có thể thêm nhiều models, controller, hoặc router mà không làm rối code.
     -   **Tổ chức rõ ràng:** Code được tổ chức theo pattern rõ ràng, giúp đội ngũ phát triển dễ dàng làm việc cùng nhau.
 
----
-
-### 5.6 Test API bằng Postman
-
-Sau khi hoàn thành việc tích hợp Mongoose và tách controller, hãy kiểm tra các API đã xây dựng bằng Postman:
-
-1. **Lấy danh sách bài viết:**
-
-    - Phương thức: `GET`
-    - URL: `http://localhost:8000/api/posts`
-    - Kết quả mong đợi: Danh sách các bài viết trong cơ sở dữ liệu.
-
-2. **Lấy chi tiết bài viết:**
-
-    - Phương thức: `GET`
-    - URL: `http://localhost:8000/api/posts/:id` (thay `:id` bằng ID của bài viết cụ thể).
-    - Kết quả mong đợi: Chi tiết bài viết với ID tương ứng.
-
-3. **Thêm bài viết mới:**
-
-    - Phương thức: `POST`
-    - URL: `http://localhost:8000/api/posts`
-    - Body (JSON):
-        ```json
-        {
-            "title": "Bài viết mới",
-            "content": "Nội dung bài viết mới"
-        }
-        ```
-    - Kết quả mong đợi: Bài viết mới được thêm vào cơ sở dữ liệu.
-
-4. **Cập nhật bài viết:**
-
-    - Phương thức: `PUT`
-    - URL: `http://localhost:8000/api/posts/:id` (thay `:id` bằng ID của bài viết cần cập nhật).
-    - Body (JSON):
-        ```json
-        {
-            "title": "Tiêu đề mới",
-            "content": "Nội dung mới"
-        }
-        ```
-    - Kết quả mong đợi: Bài viết được cập nhật với thông tin mới.
-
-5. **Xóa bài viết:**
-    - Phương thức: `DELETE`
-    - URL: `http://localhost:8000/api/posts/:id` (thay `:id` bằng ID của bài viết cần xóa).
-    - Kết quả mong đợi: Bài viết được xóa khỏi cơ sở dữ liệu.
-
----
-
-## 6. Kết luận
+## Kết luận
 
 -   MongoDB là một cơ sở dữ liệu NoSQL mạnh mẽ, phù hợp với các ứng dụng hiện đại.
 -   Mongoose giúp đơn giản hóa việc làm việc với MongoDB trong Node.js, cung cấp các tính năng mạnh mẽ như schema, validation, và middleware.

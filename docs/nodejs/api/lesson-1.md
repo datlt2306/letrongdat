@@ -1,14 +1,15 @@
-# Giới thiệu về khóa học Node.js/MongoDB
+# Giới thiệu về khóa học Node.js API cho Ecommerce
 
-Chào mừng các em đến với khóa học Node.js/Express cơ bản! 👨‍🏫
+Chào mừng các em đến với khóa học Node.js/Express xây dựng API cho ứng dụng thương mại điện tử! 👨‍🏫
 
 Khóa học này sẽ giúp các em:
 
--   Hiểu rõ bản chất Node.js, lý do nên học và ứng dụng thực tế.
+-   Hiểu rõ cách xây dựng API backend cho ứng dụng ecommerce.
 -   Thành thạo các bước thiết lập môi trường, khởi tạo dự án backend hiện đại.
 -   Làm quen với các công cụ phổ biến như Babel, dotenv, pnpm, Postman...
--   Xây dựng API đầu tiên với Express, tổ chức code khoa học, dễ mở rộng.
--   So sánh Node.js với các công nghệ backend truyền thống để chọn hướng đi phù hợp.
+-   Xây dựng các API quan trọng như quản lý sản phẩm, người dùng, giỏ hàng, đơn hàng.
+-   Tích hợp các tính năng bảo mật như xác thực JWT, mã hóa mật khẩu.
+-   Tối ưu hiệu năng và tổ chức code khoa học, dễ mở rộng.
 
 ## Giới thiệu Nodejs
 
@@ -39,10 +40,10 @@ Tóm lại, Node.js rất phù hợp cho các ứng dụng hiện đại, cần 
 
 ### Khi nào nên chọn Node.js?
 
--   Khi làm API, chat, game, ứng dụng cần nhiều kết nối đồng thời.
--   Khi muốn dùng chung một ngôn ngữ cho cả frontend và backend.
+-   Khi xây dựng API cho ứng dụng ecommerce, cần xử lý nhiều yêu cầu đồng thời.
+-   Khi muốn tích hợp các tính năng real-time như thông báo đơn hàng, chat hỗ trợ khách hàng.
 -   Khi cần tốc độ phát triển nhanh, nhiều thư viện hỗ trợ.
--   Khi xây dựng các hệ thống microservice hoặc real-time.
+-   Khi muốn xây dựng hệ thống có khả năng mở rộng và hiệu năng cao.
 
 ## Chuẩn bị cho khóa học Node.js
 

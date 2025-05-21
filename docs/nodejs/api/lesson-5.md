@@ -1,26 +1,16 @@
-# Buổi 5: Thực hành CRUD với MongoDB và Mongoose (Sản phẩm)
+# Thực hành CRUD với MongoDB và Mongoose
 
 ## Mục tiêu
 
--   Thực hành xây dựng API CRUD đầy đủ với MongoDB và Mongoose.
+-   Thực hành xây dựng API CRUD sản phẩm đầy đủ với MongoDB và Mongoose.
 -   Hiểu cách tổ chức code với models, controllers, và routers.
 -   Làm quen với cách xử lý lỗi và phản hồi trạng thái HTTP.
 
----
-
-## 1. Yêu cầu thực hành
+## Yêu cầu thực hành
 
 ### Các bước thực hiện
 
-1. **Kết nối MongoDB:**
-
-    - Sử dụng MongoDB Atlas hoặc MongoDB cài đặt trên máy.
-    - Tạo file `.env` và thêm URI kết nối:
-        ```env
-        MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority
-        ```
-
-2. **Tạo cấu trúc thư mục:**
+1. **Tạo cấu trúc thư mục:**
 
     ```
     src/
@@ -33,15 +23,13 @@
       app.js
     ```
 
-3. **Thực hiện các thao tác CRUD:**
+2. **Thực hiện các thao tác CRUD:**
     - `create`: Thêm sản phẩm mới.
     - `read`: Lấy danh sách sản phẩm hoặc chi tiết sản phẩm theo ID.
     - `update`: Cập nhật thông tin sản phẩm.
     - `delete`: Xóa sản phẩm.
 
----
-
-## 2. Hướng dẫn thực hành
+## Hướng dẫn thực hành
 
 ### Định nghĩa Schema và Model
 
@@ -115,8 +103,6 @@ const Product = mongoose.model("Product", productSchema);
 export default Product;
 ```
 
----
-
 ### Tách Controller để quản lý logic
 
 **src/controllers/productController.js**
@@ -183,8 +169,6 @@ export const deleteProduct = async (req, res) => {
 };
 ```
 
----
-
 ### Sử dụng Controller trong Router
 
 **src/routers/products.js**
@@ -220,39 +204,9 @@ routeProduct.delete("/:id", deleteProduct);
 export default routeProduct;
 ```
 
----
+### Import router vào file `routers/index.js`
 
-### Tích hợp Router vào Ứng dụng
-
-**src/app.js**
-
-```javascript
-// filepath: FPL-WEB503/src/app.js
-import express from "express";
-import dotenv from "dotenv";
-import router from "./routers";
-
-dotenv.config();
-const app = express();
-
-// Kết nối MongoDB
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("Kết nối MongoDB thành công"))
-    .catch((err) => console.error("Kết nối MongoDB thất bại:", err));
-
-// Middleware
-app.use(express.json());
-app.use("/api", router);
-
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
-});
-```
-
----
-
-### Cấu hình Router chính
+Để sử dụng các router đã tạo, bạn cần import chúng vào file `routers/index.js` và cấu hình như sau:
 
 **src/routers/index.js**
 
@@ -272,8 +226,6 @@ router.use("/products", routeProduct);
 
 export default router;
 ```
-
----
 
 ## 3. Kết luận
 

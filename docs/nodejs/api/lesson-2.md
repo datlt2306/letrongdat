@@ -1,4 +1,4 @@
-# Buổi 2: Tổng quan về Request/Response và Middleware cơ bản trong Express
+# Tổng quan về Request/Response và Middleware cơ bản trong Express
 
 ## Mục tiêu
 
@@ -7,63 +7,7 @@
 -   Thực hành viết các endpoint đơn giản.
 -   Làm quen với middleware cơ bản, chuẩn bị cho việc sử dụng phương thức POST.
 
----
-
-## 1. Thực hành ôn tập buổi 1
-
-### Các bước thực hiện
-
-1. Tạo thư mục dự án mới (nếu chưa có).
-2. Khởi tạo dự án Node.js:
-    ```bash
-    npm init -y
-    ```
-3. Cài đặt các thư viện cần thiết:
-    ```bash
-    pnpm i express dotenv
-    ```
-4. Cài đặt Babel và nodemon:
-    ```bash
-    pnpm i -D @babel/core @babel/node @babel/preset-env nodemon
-    ```
-5. Tạo file `.babelrc` với nội dung:
-    ```json
-    {
-        "presets": ["@babel/preset-env"]
-    }
-    ```
-6. Tạo cấu trúc thư mục:
-    ```
-    src/
-      app.js
-      routers/
-        index.js
-    .babelrc
-    .env
-    ```
-7. Thêm script vào `package.json`:
-    ```json
-    "scripts": {
-      "dev": "nodemon --exec babel-node src/app.js"
-    }
-    ```
-8. Cấu hình biến môi trường
-   Tạo file `.env` với nội dung:
-
-    ```env
-    PORT=8000
-    ```
-
-    Tạo file `.gitignore` với nội dung:
-
-    ```
-    node_modules
-    .env
-    ```
-
----
-
-## 2. Tổng quan về Request và Response trong Express
+## Tổng quan về Request và Response trong Express
 
 ### Request (Yêu cầu)
 
@@ -82,8 +26,6 @@ Response là thông tin mà server trả về cho client. Trong Express, đối 
     -   `res.json(data)`: Trả về dữ liệu dạng JSON.
     -   `res.send(data)`: Trả về dữ liệu dạng text hoặc HTML.
     -   `res.status(code)`: Thiết lập mã trạng thái HTTP (ví dụ: 200, 404, 500...).
-
----
 
 ### Ví dụ minh họa
 
@@ -126,9 +68,7 @@ app.listen(process.env.PORT || 3000, () => {
 });
 ```
 
----
-
-## 3. Bài thực hành nhỏ
+## Bài thực hành nhỏ
 
 ### Yêu cầu
 
@@ -154,9 +94,7 @@ router.get("/sum", (req, res) => {
 });
 ```
 
----
-
-## 4. Middleware cơ bản trong Express
+## Middleware cơ bản trong Express
 
 Middleware là các hàm trung gian trong Express, được sử dụng để xử lý request trước khi nó đến các route handler hoặc xử lý response trước khi gửi về client.
 
@@ -190,8 +128,6 @@ Middleware là các hàm trung gian trong Express, được sử dụng để x�
     app.use(express.static("public"));
     ```
 
----
-
 ### Sử dụng `express.json()` để xử lý dữ liệu JSON
 
 Khi client gửi dữ liệu JSON trong body của request (ví dụ: với phương thức POST), cần sử dụng middleware `express.json()` để Express tự động parse dữ liệu JSON thành đối tượng JavaScript.
@@ -208,7 +144,5 @@ app.post("/api/posts", (req, res) => {
 ```
 
 > **Lưu ý:** Nếu không sử dụng `express.json()`, `req.body` sẽ là `undefined`.
-
----
 
 Chúc các em thực hành vui vẻ và sáng tạo! 🚀

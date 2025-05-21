@@ -1,16 +1,12 @@
-# Buổi 6: Middleware validate dữ liệu đầu vào trong Express
+# Middleware validate dữ liệu đầu vào trong Express
 
 Chào các em! 👋 Hôm nay chúng ta sẽ cùng nhau tìm hiểu cách viết middleware để validate dữ liệu đầu vào trong Express. Đây là một kỹ năng rất quan trọng khi xây dựng API, giúp đảm bảo dữ liệu gửi lên từ client luôn hợp lệ và giảm thiểu lỗi trong ứng dụng.
-
----
 
 ## Mục tiêu
 
 -   Hiểu cách viết middleware để validate dữ liệu đầu vào.
 -   So sánh Joi với validate từ model và các thư viện khác.
 -   Thực hành áp dụng middleware cho các thao tác `create` và `put`.
-
----
 
 ## 1. Joi là gì?
 
@@ -51,8 +47,6 @@ if (error) {
 
 Các em thấy không, Joi giúp chúng ta kiểm tra dữ liệu rất dễ dàng và rõ ràng. Bây giờ, chúng ta sẽ áp dụng Joi vào thực tế nhé!
 
----
-
 ## 2. So sánh Joi với validate từ model và các thư viện khác
 
 ### Validate từ model (ví dụ: Mongoose)
@@ -66,8 +60,6 @@ Mongoose cũng hỗ trợ validate dữ liệu, nhưng nó chỉ hoạt động 
 | **Tùy chỉnh thông báo lỗi**   | ✅                           | Hạn chế              | ✅                  |
 | **Hỗ trợ validate nâng cao**  | ✅ (nested, điều kiện, v.v.) | Hạn chế              | ✅                  |
 | **Dễ tích hợp với Express**   | ✅                           | ❌ (chỉ trong model) | ✅                  |
-
----
 
 ## 3. Áp dụng Joi trong middleware
 
@@ -100,8 +92,6 @@ export const validateRequest = (schema, target = "body") => {
     };
 };
 ```
-
----
 
 ### 3.2 Tách schema validate vào file riêng
 
@@ -151,8 +141,6 @@ export const updateProductSchema = createProductSchema.fork(
 );
 ```
 
----
-
 ### 3.3 Sử dụng schema và controller trong router
 
 Cập nhật router để sử dụng `createProductSchema` và `updateProductSchema`.
@@ -176,8 +164,6 @@ router.put("/:id", validateRequest(updateProductSchema), updateProduct);
 
 export default router;
 ```
-
----
 
 ## 4. Kết luận
 

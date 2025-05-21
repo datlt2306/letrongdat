@@ -1,4 +1,4 @@
-# Buổi 3: Thực hành CRUD với mảng dữ liệu giả trong Node.js/Express
+# Thực hành CRUD với mảng dữ liệu giả trong Node.js/Express
 
 ## Mục tiêu
 
@@ -7,9 +7,7 @@
 -   Làm quen với cách xử lý lỗi và phản hồi trạng thái HTTP.
 -   Chuẩn bị nền tảng để làm việc với cơ sở dữ liệu thực tế.
 
----
-
-## 1. Yêu cầu thực hành
+## Yêu cầu thực hành
 
 ### Tạo mảng dữ liệu giả
 
@@ -28,8 +26,6 @@ let posts = [
 ];
 ```
 
----
-
 ### Các endpoint cần thực hiện
 
 1. **GET /api/posts**  
@@ -47,9 +43,7 @@ let posts = [
 5. **DELETE /api/posts/:id**  
    Xóa bài viết theo `id`. Trả về 404 nếu không tìm thấy.
 
----
-
-## 2. Hướng dẫn thực hành
+## Hướng dẫn thực hành
 
 ### Khởi tạo router
 
@@ -110,8 +104,6 @@ router.delete("/:id", (req, res) => {
 export default router;
 ```
 
----
-
 ### Tích hợp router vào ứng dụng
 
 **src/app.js**
@@ -133,9 +125,7 @@ app.listen(process.env.PORT, () => {
 });
 ```
 
----
-
-## 3. Bài tập nâng cao
+## Bài tập nâng cao
 
 1. **Tìm kiếm:**
 
@@ -177,29 +167,27 @@ app.listen(process.env.PORT, () => {
     });
     ```
 
----
+## Hướng dẫn tạo collections test API sử dụng Postman
 
-## 4. Hướng dẫn tạo collections test API sử dụng Postman
+### Export file Postman
 
-### 4.1 Export file Postman
-
-1. Mở Postman và chọn Collection mà bạn muốn export (ví dụ: `WD20105`).
+1. Mở Postman và chọn Collection mà bạn muốn export (ví dụ: `FPL-WEB503`).
 2. Nhấn chuột phải vào Collection và chọn **Export**.
 3. Chọn định dạng **Collection v2.1** (khuyến nghị) và nhấn **Export**.
-4. Lưu file JSON vào thư mục dự án, ví dụ: `FPL-WEB503/note/WD20105.postman_collection.json`.
+4. Lưu file JSON vào thư mục dự án, ví dụ: `FPL-WEB503/note/FPL-WEB503.postman_collection.json`.
 
----
+### Sử dụng AI để tạo tài liệu từ file JSON
 
-### 4.2 Sử dụng AI để tạo tài liệu từ file JSON
-
-#### Gợi ý prompt để tạo tài liệu API từ file JSON:
+Nhập prompt sau:
 
 <blockquote>Hãy tạo tài liệu API từ file JSON sau. File này chứa các endpoint CRUD cho bài viết, bao gồm các phương thức GET, POST, PUT, DELETE. Dưới đây là nội dung file JSON:</blockquote>
+
+#### Kết quả mong đợi:
 
 ```json
 {
     "info": {
-        "name": "WD20105",
+        "name": "FPL-WEB503",
         "description": "Collection API CRUD cho bài viết",
         ...
     },
@@ -235,8 +223,6 @@ app.listen(process.env.PORT, () => {
 }
 ```
 
-#### Kết quả mong đợi:
-
 -   Tài liệu API được tạo từ file JSON, bao gồm:
     -   Tên endpoint.
     -   Phương thức HTTP (GET, POST, PUT, DELETE).
@@ -245,21 +231,15 @@ app.listen(process.env.PORT, () => {
     -   Mô tả dữ liệu trả về (nếu có).
     -   Biến môi trường `host` được thiết lập để dễ dàng thay đổi URL gốc.
 
----
-
 ### 4.3 Import file JSON vào Postman
 
 1. Mở Postman và nhấn vào nút **Import** ở góc trên bên trái.
 2. Chọn tab **File** và nhấn **Upload Files**.
-3. Chọn file JSON đã export (ví dụ: `WD20105.postman_collection.json`) và nhấn **Open**.
+3. Chọn file JSON đã export (ví dụ: `FPL-WEB503.postman_collection.json`) và nhấn **Open**.
 4. Sau khi import thành công, bạn sẽ thấy Collection xuất hiện trong Postman.
-
----
 
 ### 4.4 Tạo tài liệu Markdown từ file JSON
 
 ...existing content...
-
----
 
 Chúc các em học tốt! 🚀
