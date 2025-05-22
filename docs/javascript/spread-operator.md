@@ -163,7 +163,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const bookAuthors = [...books[0].author, ...books[1].author];
@@ -184,7 +184,7 @@ spellWord("JavaScript");
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 function spellWord(word) {

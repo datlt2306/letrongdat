@@ -140,7 +140,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 for (let i = 0; i < books.length; i++) {
@@ -172,7 +172,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 for (let i = 0; i < books.length; i++) {

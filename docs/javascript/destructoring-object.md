@@ -123,7 +123,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const { title, author, ISBN } = books[0];
@@ -145,7 +145,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const { keywords: tags } = books[0];
@@ -167,7 +167,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const { language, programmingLanguage = "unknown" } = books[6];
@@ -191,7 +191,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 ({ title: bookTitle, author: bookAuthor } = books[0]);
@@ -221,7 +221,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const {
@@ -248,7 +248,7 @@ printBookInfo({ title: "Algorithms", author: "Robert Sedgewick", year: "2011" })
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 function printBookInfo({ title, author, year = "year unknown" }) {

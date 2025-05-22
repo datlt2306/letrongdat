@@ -179,7 +179,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const [mainKeyword, ...rest] = books[0].keywords;
@@ -205,7 +205,7 @@ const books = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const { publisher: bookPublisher, ...restOfTheBook } = books[1];
@@ -231,7 +231,7 @@ printBookAuthorsCount("Algorithms", "Robert Sedgewick", "Kevin Wayne");
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 function printBookAuthorsCount(title, ...authors) {

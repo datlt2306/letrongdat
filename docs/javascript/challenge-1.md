@@ -37,7 +37,7 @@ const game = {
 Tạo 2 mảng `players1` và `players2`, mỗi mảng chứa danh sách cầu thủ của từng đội.
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const [players1, players2] = game.players;
@@ -53,7 +53,7 @@ const [players1, players2] = game.players;
 Trong `players1`, phần tử đầu là thủ môn, phần còn lại là cầu thủ sân.
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const [gk, ...fieldPlayers] = players1;
@@ -72,7 +72,7 @@ const [gk, ...fieldPlayers] = players1;
 Tạo mảng `allPlayers` chứa đầy đủ 22 cầu thủ.
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const allPlayers = [...players1, ...players2];
@@ -88,7 +88,7 @@ const allPlayers = [...players1, ...players2];
 Tạo mảng mới `players1Final` chứa toàn bộ cầu thủ đội 1 + 3 cầu thủ dự bị.
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
@@ -104,7 +104,7 @@ const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
 Tạo 3 biến `team1`, `draw`, `team2` tương ứng với tỉ lệ cá cược.
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const {
@@ -125,7 +125,7 @@ const {
 - In ra tên từng cầu thủ và tổng số bàn thắng.
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 function printGoals(...players) {
@@ -150,7 +150,7 @@ printGoals(...game.scored);
 Đội có tỉ lệ cược thấp hơn thì khả năng thắng cao hơn.
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 team1 < team2 && console.log('Team 1 is more likely to win');

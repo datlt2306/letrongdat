@@ -110,7 +110,7 @@ const books = ["Book 1", "Book 2", "Book 3", "Book 4"];
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const [firstBook, secondBook] = books;
@@ -129,7 +129,7 @@ const books = ["Book 1", "Book 2", "Book 3", "Book 4"];
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const [, , thirdBook] = books;
@@ -151,7 +151,7 @@ const ratings = [
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const [[, rating], [, ratingsCount]] = ratings;
@@ -170,7 +170,7 @@ const ratingStars = [63405, 1808];
 ```
 
 <details>
-<summary>Show example solution</summary>
+<summary>Hiển thị lời giải mẫu</summary>
 
 ```javascript
 const [fiveStarRatings, oneStarRatings, threeStarRatings = 0] = ratingStars;
