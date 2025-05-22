@@ -5,7 +5,7 @@ export default {
         nav: [
             { text: "Trang chủ", link: "/" },
             // { text: "HTML/CSS", link: "/html-css/" },
-            // { text: "JavaScript", link: "/javascript/" },
+            { text: "JavaScript", link: "/javascript/" },
             // { text: "React", link: "/react/" },
             { text: "Node.js", link: "/nodejs/" },
             // { text: "MongoDB", link: "/mongodb/" },
@@ -51,49 +51,46 @@ export default {
             //         ],
             //     },
             // ],
-            // "/javascript/": [
-            //     {
-            //         text: "Chapter 1: Giới thiệu JavaScript",
-            //         collapsed: false,
-            //         items: [
-            //             { text: "1.1 Giới thiệu về JavaScript", link: "/javascript/" },
-            //             { text: "1.2 Cài đặt môi trường", link: "/javascript/setup" },
-            //         ],
-            //     },
-            //     {
-            //         text: "Chapter 2: Nền tảng JavaScript",
-            //         collapsed: false,
-            //         items: [
-            //             {
-            //                 text: "2.1 Biến, kiểu dữ liệu, toán tử",
-            //                 link: "/javascript/variables-datatypes",
-            //             },
-            //             {
-            //                 text: "2.2 Câu lệnh điều kiện, vòng lặp",
-            //                 link: "/javascript/conditionals-loops",
-            //             },
-            //             { text: "2.3 Hàm & Scope", link: "/javascript/functions-scope" },
-            //         ],
-            //     },
-            //     {
-            //         text: "Chapter 3: JavaScript Nâng cao",
-            //         collapsed: false,
-            //         items: [
-            //             { text: "3.1 Object & Array", link: "/javascript/objects-arrays" },
-            //             { text: "3.2 Bất đồng bộ trong JavaScript", link: "/javascript/async" },
-            //             { text: "3.3 ES6+ Features", link: "/javascript/es6-features" },
-            //         ],
-            //     },
-            //     {
-            //         text: "Chapter 4: DOM & Browser APIs",
-            //         collapsed: false,
-            //         items: [
-            //             { text: "4.1 DOM Manipulation", link: "/javascript/dom" },
-            //             { text: "4.2 Events & Event Handling", link: "/javascript/events" },
-            //             { text: "4.3 Fetch API & AJAX", link: "/javascript/fetch-ajax" },
-            //         ],
-            //     },
-            // ],
+            "/javascript/": [
+                {
+                    text: "9. Cấu trúc dữ liệu, toán tử và chuỗi",
+                    collapsed: false,
+                    items: [
+                        {
+                            text: "Destructoring Array",
+                            link: "/javascript/destructoring-array",
+                        },
+                        {
+                            text: "Destructoring Object",
+                            link: "/javascript/destructoring-object",
+                        },
+                        {
+                            text: "Spread Operator",
+                            link: "/javascript/spread-operator",
+                        },
+                        {
+                            text: "Rest Pattern & Parameters",
+                            link: "/javascript/rest-pattern-parameters",
+                        },
+                        {
+                            text: "Short Circuiting (|| và &&)",
+                            link: "/javascript/short-circuiting",
+                        },
+                        {
+                            text: "Toán tử Nullish Coalescing (??)",
+                            link: "/javascript/the-nullish-coalescing-operator",
+                        },
+                        {
+                            text: "Toán tử Logical Assignment (||=, ??=, &&=)",
+                            link: "/javascript/logical-assignment-operator",
+                        },
+                        {
+                            text: "Thử thách",
+                            link: "/javascript/challenge-1",
+                        },
+                    ],
+                },
+            ],
             // "/react/": [
             //     {
             //         text: "Chapter 1: React Fundamentals",
