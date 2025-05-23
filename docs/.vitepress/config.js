@@ -141,17 +141,17 @@ export default {
                             link: "/nodejs/api/lesson-6",
                         },
                         {
-                            text: "7: Xây dựng API Authentication",
+                            text: "7: Authentication và Authorization",
                             link: "/nodejs/api/lesson-7",
                         },
-                        // {
-                        //     text: "8: Xây dựng API User Management",
-                        //     link: "/nodejs/api/lesson-8",
-                        // },
-                        // {
-                        //     text: "9: Xây dựng API Product Categories",
-                        //     link: "/nodejs/api/lesson-9",
-                        // },
+                        {
+                            text: "8: Đăng ký, Đăng nhập",
+                            link: "/nodejs/api/lesson-8",
+                        },
+                        {
+                            text: "9: Kiểm tra Quyền trong API",
+                            link: "/nodejs/api/lesson-9",
+                        },
                         // { text: "10: Xây dựng API Products", link: "/nodejs/api/lesson-10" },
                         // { text: "11: Xây dựng API Cart", link: "/nodejs/api/lesson-11" },
                         // { text: "12: Xây dựng API Orders", link: "/nodejs/api/lesson-12" },

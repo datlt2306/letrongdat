@@ -171,7 +171,6 @@ Hãy tưởng tượng một sinh viên đến trường và gửi xe. Ông bả
    - Vé xe này được đưa cho sinh viên.
    - Khi sinh viên quay lại, ông bảo vệ kiểm tra tính hợp lệ của vé bằng cách giải mã và xác minh chữ ký, mà không cần lưu trữ thông tin xe ở đâu cả.
 
----
 
 ### Ưu và nhược điểm
 
@@ -184,7 +183,6 @@ Hãy tưởng tượng một sinh viên đến trường và gửi xe. Ông bả
 | **JWT-based**             | - Không trạng thái (stateless), phù hợp cho hệ thống phân tán.             | - Không thể hủy bỏ token sau khi phát hành (trừ khi sử dụng danh sách đen).    |
 |                           | - Không cần lưu trữ trên máy chủ.                                          | - Token có thể lớn, làm tăng kích thước yêu cầu HTTP.                          |
 
----
 
 ### Kết luận
 

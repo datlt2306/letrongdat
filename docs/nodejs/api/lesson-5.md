@@ -142,6 +142,79 @@ export default Product;
 
 ### Tách Controller để quản lý logic
 
+## 3. Các bước cần làm trước khi viết Controller
+
+Trước khi bắt tay vào viết code cho controller, chúng ta cần xác định rõ các bước cần thực hiện để đảm bảo logic được xây dựng đúng và đầy đủ. Dưới đây là các bước cụ thể:
+
+### 3.1. Lấy danh sách sản phẩm (`GET /api/products`)
+
+1. **Kết nối cơ sở dữ liệu**:  
+   - Sử dụng model `Product` để truy vấn danh sách sản phẩm.
+2. **Xử lý kết quả**:  
+   - Nếu có sản phẩm, trả về danh sách sản phẩm.
+   - Nếu xảy ra lỗi, trả về lỗi server.
+
+---
+
+### 3.2. Lấy chi tiết sản phẩm (`GET /api/products/:id`)
+
+1. **Nhận `id` từ URL**:  
+   - Lấy `id` từ `req.params`.
+2. **Tìm sản phẩm trong cơ sở dữ liệu**:  
+   - Sử dụng `Product.findById` để tìm sản phẩm theo `id`.
+3. **Xử lý kết quả**:  
+   - Nếu tìm thấy sản phẩm, trả về thông tin sản phẩm.
+   - Nếu không tìm thấy, trả về lỗi `404 Not Found`.
+   - Nếu xảy ra lỗi, trả về lỗi server.
+
+---
+
+### 3.3. Thêm sản phẩm mới (`POST /api/products`)
+
+1. **Nhận dữ liệu từ client**:  
+   - Các trường cần nhận: `name`, `slug`, `description`, `price`, `discountPrice`, `images`, `stock`, `sku`, `status`, `featured`, `ratings`.
+2. **Kiểm tra dữ liệu đầu vào**:  
+   - Đảm bảo các trường bắt buộc đều có giá trị.
+   - Kiểm tra các ràng buộc như `price >= 0`, `stock >= 0`, `ratings` từ 0 đến 5.
+3. **Lưu sản phẩm vào cơ sở dữ liệu**:  
+   - Sử dụng model `Product` để lưu thông tin sản phẩm.
+4. **Trả về phản hồi**:  
+   - Nếu thành công, trả về thông tin sản phẩm vừa thêm.
+   - Nếu có lỗi, trả về thông báo lỗi chi tiết.
+
+---
+
+### 3.4. Cập nhật sản phẩm (`PUT /api/products/:id`)
+
+1. **Nhận `id` từ URL và dữ liệu từ client**:  
+   - Lấy `id` từ `req.params` và dữ liệu cập nhật từ `req.body`.
+2. **Tìm và cập nhật sản phẩm trong cơ sở dữ liệu**:  
+   - Sử dụng `Product.findByIdAndUpdate` để cập nhật sản phẩm theo `id`.
+   - Đảm bảo chạy các validator khi cập nhật.
+3. **Xử lý kết quả**:  
+   - Nếu cập nhật thành công, trả về thông tin sản phẩm đã cập nhật.
+   - Nếu không tìm thấy sản phẩm, trả về lỗi `404 Not Found`.
+   - Nếu xảy ra lỗi, trả về thông báo lỗi chi tiết.
+
+---
+
+### 3.5. Xóa sản phẩm (`DELETE /api/products/:id`)
+
+1. **Nhận `id` từ URL**:  
+   - Lấy `id` từ `req.params`.
+2. **Tìm và xóa sản phẩm trong cơ sở dữ liệu**:  
+   - Sử dụng `Product.findByIdAndDelete` để xóa sản phẩm theo `id`.
+3. **Xử lý kết quả**:  
+   - Nếu xóa thành công, trả về thông báo thành công.
+   - Nếu không tìm thấy sản phẩm, trả về lỗi `404 Not Found`.
+   - Nếu xảy ra lỗi, trả về lỗi server.
+
+---
+
+## 4. Tách Controller để quản lý logic
+
+Sau khi xác định rõ các bước cần làm, chúng ta sẽ viết code cho các chức năng trong file controller.
+
 **src/controllers/productController.js**
 
 ```javascript
@@ -264,10 +337,168 @@ router.use("/products", routeProduct);
 export default router;
 ```
 
-## 3. Kết luận
+---
 
--   Buổi thực hành này giúp bạn hiểu rõ cách xây dựng API CRUD đầy đủ với MongoDB và Mongoose.
--   Việc tổ chức code theo pattern models, controllers, và routers giúp dự án dễ bảo trì và mở rộng.
--   Hãy kiểm tra API bằng Postman để đảm bảo mọi chức năng hoạt động đúng.
+## 4. Test API với Postman và Dữ liệu Fake
 
-Chúc các em học tốt! 🚀
+### 4.1. Dữ liệu Fake
+
+Dưới đây là một số dữ liệu mẫu để kiểm tra API:
+
+#### Thêm sản phẩm mới (`POST /api/products`)
+
+- **Body** (JSON):
+
+```json
+{
+  "name": "Laptop Dell XPS 13",
+  "slug": "laptop-dell-xps-13",
+  "description": "Laptop cao cấp với thiết kế mỏng nhẹ.",
+  "price": 35000,
+  "discountPrice": 32000,
+  "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+  "stock": 10,
+  "sku": "DELL-XPS-13",
+  "status": "published",
+  "featured": true,
+  "ratings": 4.5
+}
+```
+
+- **Kết quả**:
+
+```json
+{
+  "_id": "64f1a2b3c4d5e6f7g8h9i0j1",
+  "name": "Laptop Dell XPS 13",
+  "slug": "laptop-dell-xps-13",
+  "description": "Laptop cao cấp với thiết kế mỏng nhẹ.",
+  "price": 35000,
+  "discountPrice": 32000,
+  "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+  "stock": 10,
+  "sku": "DELL-XPS-13",
+  "status": "published",
+  "featured": true,
+  "ratings": 4.5,
+  "createdAt": "2023-09-01T12:00:00.000Z",
+  "updatedAt": "2023-09-01T12:00:00.000Z"
+}
+```
+
+---
+
+#### Lấy danh sách sản phẩm (`GET /api/products`)
+
+- **Kết quả**:
+
+```json
+[
+  {
+    "_id": "64f1a2b3c4d5e6f7g8h9i0j1",
+    "name": "Laptop Dell XPS 13",
+    "slug": "laptop-dell-xps-13",
+    "price": 35000,
+    "stock": 10,
+    "status": "published",
+    "ratings": 4.5
+  },
+  {
+    "_id": "64f1a2b3c4d5e6f7g8h9i0j2",
+    "name": "iPhone 14 Pro Max",
+    "slug": "iphone-14-pro-max",
+    "price": 45000,
+    "stock": 5,
+    "status": "published",
+    "ratings": 4.8
+  }
+]
+```
+
+---
+
+#### Lấy chi tiết sản phẩm (`GET /api/products/:id`)
+
+- **URL**: `http://localhost:3000/api/products/64f1a2b3c4d5e6f7g8h9i0j1`
+
+- **Kết quả**:
+
+```json
+{
+  "_id": "64f1a2b3c4d5e6f7g8h9i0j1",
+  "name": "Laptop Dell XPS 13",
+  "slug": "laptop-dell-xps-13",
+  "description": "Laptop cao cấp với thiết kế mỏng nhẹ.",
+  "price": 35000,
+  "discountPrice": 32000,
+  "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+  "stock": 10,
+  "sku": "DELL-XPS-13",
+  "status": "published",
+  "featured": true,
+  "ratings": 4.5,
+  "createdAt": "2023-09-01T12:00:00.000Z",
+  "updatedAt": "2023-09-01T12:00:00.000Z"
+}
+```
+
+---
+
+#### Cập nhật sản phẩm (`PUT /api/products/:id`)
+
+- **URL**: `http://localhost:3000/api/products/64f1a2b3c4d5e6f7g8h9i0j1`
+
+- **Body** (JSON):
+
+```json
+{
+  "price": 34000,
+  "stock": 15
+}
+```
+
+- **Kết quả**:
+
+```json
+{
+  "_id": "64f1a2b3c4d5e6f7g8h9i0j1",
+  "name": "Laptop Dell XPS 13",
+  "slug": "laptop-dell-xps-13",
+  "description": "Laptop cao cấp với thiết kế mỏng nhẹ.",
+  "price": 34000,
+  "discountPrice": 32000,
+  "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+  "stock": 15,
+  "sku": "DELL-XPS-13",
+  "status": "published",
+  "featured": true,
+  "ratings": 4.5,
+  "createdAt": "2023-09-01T12:00:00.000Z",
+  "updatedAt": "2023-09-01T12:30:00.000Z"
+}
+```
+
+---
+
+#### Xóa sản phẩm (`DELETE /api/products/:id`)
+
+- **URL**: `http://localhost:3000/api/products/64f1a2b3c4d5e6f7g8h9i0j1`
+
+- **Kết quả**:
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+## 5. Tóm tắt
+
+- **Dữ liệu Fake**: Sử dụng các mẫu JSON để kiểm tra các endpoint CRUD.
+- **Test Postman**: Kiểm tra các endpoint `/api/products` với các phương thức `GET`, `POST`, `PUT`, và `DELETE`.
+- **Kết quả**: Đảm bảo API hoạt động đúng với các yêu cầu CRUD.
+
+Chúc các em học tốt! 🚀  
+— **Thầy Đạt 🧡**

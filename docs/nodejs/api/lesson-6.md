@@ -208,8 +208,102 @@ router.put("/:id", validateRequest(updateProductSchema), updateProduct);
 export default router;
 ```
 
-## 4. Kết luận
+## 4. Tổng hợp Code
+
+Dưới đây là tổng hợp các file code đã sử dụng trong bài học này.
+
+::: code-group
+
+```javascript [src/middleware/validateRequest.js]
+// filepath: /FPL-WEB503/src/middleware/validateRequest.js
+import Joi from "joi";
+
+export const validateRequest = (schema, target = "body") => {
+    return (req, res, next) => {
+        const { error, value } = schema.validate(req[target], {
+            abortEarly: false,
+            stripUnknown: true,
+        });
+
+        if (error) {
+            return res.status(400).json({
+                error: "Dữ liệu không hợp lệ",
+                details: error.details.map((err) => err.message),
+            });
+        }
+
+        req[target] = value;
+        next();
+    };
+};
+```
+
+```javascript [src/validation/productValidation.js]
+// filepath: /FPL-WEB503/src/validation/productValidation.js
+import Joi from "joi";
+
+// Schema tạo sản phẩm mới
+export const createProductSchema = Joi.object({
+    name: Joi.string().required().max(200).messages({
+        "string.base": "Tên sản phẩm phải là chuỗi",
+        "string.empty": "Tên sản phẩm không được để trống",
+        "string.max": "Tên sản phẩm không được vượt quá {#limit} ký tự",
+        "any.required": "Tên sản phẩm là bắt buộc",
+    }),
+    description: Joi.string().required().messages({
+        "string.base": "Mô tả sản phẩm phải là chuỗi",
+        "string.empty": "Mô tả sản phẩm không được để trống",
+        "any.required": "Mô tả sản phẩm là bắt buộc",
+    }),
+    price: Joi.number().required().min(0).messages({
+        "number.base": "Giá sản phẩm phải là số",
+        "number.min": "Giá sản phẩm không được âm",
+        "any.required": "Giá sản phẩm là bắt buộc",
+    }),
+    priceDiscount: Joi.number().min(0).max(Joi.ref("price")).messages({
+        "number.base": "Giá khuyến mãi phải là số",
+        "number.min": "Giá khuyến mãi không được âm",
+        "number.max": "Giá khuyến mãi phải nhỏ hơn hoặc bằng giá gốc",
+    }),
+    category: Joi.string().required().messages({
+        "string.base": "ID danh mục phải là chuỗi",
+        "string.empty": "ID danh mục không được để trống",
+        "any.required": "Danh mục sản phẩm là bắt buộc",
+    }),
+    // ...các trường khác...
+});
+
+// Schema cập nhật sản phẩm
+export const updateProductSchema = createProductSchema.fork(
+    ["name", "description", "price"],
+    (schema) => schema.optional()
+);
+```
+
+```javascript [src/routers/products.js]
+// filepath: /FPL-WEB503/src/routers/products.js
+import { Router } from "express";
+import { validateRequest } from "../middleware/validateRequest";
+import { createProductSchema, updateProductSchema } from "../validation/productValidation";
+import { createProduct, updateProduct } from "../controllers/productController";
+
+const router = Router();
+
+// Route thêm sản phẩm mới
+router.post("/", validateRequest(createProductSchema), createProduct);
+
+// Route cập nhật sản phẩm
+router.put("/:id", validateRequest(updateProductSchema), updateProduct);
+
+export default router;
+```
+
+:::
+
+## 5. Kết luận
 
 Các em thấy không, việc sử dụng Joi giúp chúng ta kiểm tra dữ liệu đầu vào một cách dễ dàng và hiệu quả. Hãy nhớ rằng, việc validate dữ liệu là rất quan trọng để đảm bảo ứng dụng của chúng ta hoạt động ổn định và an toàn.
 
-Chúc các em học tốt! 🚀 Nếu có thắc mắc, đừng ngại hỏi thầy nhé! 😊
+Chúc các em học tốt! 🚀  
+— **Thầy Đạt 🧡**
+
