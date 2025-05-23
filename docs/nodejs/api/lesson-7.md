@@ -150,63 +150,7 @@ function authenticateToken(req, res, next) {
 > **Khuyến nghị**: Sử dụng cookie với các thuộc tính bảo mật (`HttpOnly`, `Secure`) để lưu JWT.
 
 
-## 5. Ứng dụng Authentication và Authorization trong Node.js
-
-### Authentication:
-
-```javascript
-const express = require('express');
-const jwt = require('jsonwebtoken');
-
-const app = express();
-app.use(express.json());
-
-const secretKey = 'yourSecretKey';
-
-// Đăng nhập và tạo JWT
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-
-  // Kiểm tra thông tin đăng nhập (giả sử đúng)
-  const user = { id: 1, username, role: 'admin' };
-  const token = jwt.sign(user, secretKey, { expiresIn: '1h' });
-
-  res.json({ token });
-});
-```
-
-### Authorization:
-
-```javascript
-function authorizeRoles(...roles) {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).send('Access Denied');
-    }
-    next();
-  };
-}
-
-// Sử dụng middleware
-app.get('/admin', authenticateToken, authorizeRoles('admin'), (req, res) => {
-  res.send('Welcome Admin');
-});
-```
-
-
-## 6. Tóm tắt nhanh
-
-| **Khái niệm**      | **Mục đích**                                      | **Ứng dụng trong Node.js**                              |
-|---------------------|--------------------------------------------------|--------------------------------------------------------|
-| **Authentication** | Xác minh danh tính người dùng.                   | Passport.js, JWT, bcrypt.                              |
-| **Authorization**  | Xác định quyền truy cập của người dùng.          | Phân quyền dựa trên vai trò hoặc quyền (RBAC, PBAC).   |
-| **JWT**            | Truyền thông tin xác thực giữa các bên.           | Sử dụng để xác thực không trạng thái (stateless).      |
-
-
-Authentication và Authorization là hai thành phần không thể thiếu trong bảo mật ứng dụng. Trong Node.js, chúng ta có thể sử dụng các thư viện mạnh mẽ như Passport.js và JWT để triển khai các cơ chế này một cách hiệu quả.
-
-
-## 7. Sự khác nhau giữa JWT, Cookie và Session-based Authentication
+## 5. Sự khác nhau giữa JWT, Cookie và Session-based Authentication
 
 ### Ví dụ minh họa: Sinh viên gửi xe
 
@@ -227,6 +171,7 @@ Hãy tưởng tượng một sinh viên đến trường và gửi xe. Ông bả
    - Vé xe này được đưa cho sinh viên.
    - Khi sinh viên quay lại, ông bảo vệ kiểm tra tính hợp lệ của vé bằng cách giải mã và xác minh chữ ký, mà không cần lưu trữ thông tin xe ở đâu cả.
 
+---
 
 ### Ưu và nhược điểm
 
@@ -239,6 +184,7 @@ Hãy tưởng tượng một sinh viên đến trường và gửi xe. Ông bả
 | **JWT-based**             | - Không trạng thái (stateless), phù hợp cho hệ thống phân tán.             | - Không thể hủy bỏ token sau khi phát hành (trừ khi sử dụng danh sách đen).    |
 |                           | - Không cần lưu trữ trên máy chủ.                                          | - Token có thể lớn, làm tăng kích thước yêu cầu HTTP.                          |
 
+---
 
 ### Kết luận
 
