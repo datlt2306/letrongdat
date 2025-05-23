@@ -140,10 +140,10 @@ export default {
                             text: "6. Validate dữ liệu với Joi",
                             link: "/nodejs/api/lesson-6",
                         },
-                        // {
-                        //     text: "7: Xây dựng API Authentication",
-                        //     link: "/nodejs/api/lesson-7",
-                        // },
+                        {
+                            text: "7: Xây dựng API Authentication",
+                            link: "/nodejs/api/lesson-7",
+                        },
                         // {
                         //     text: "8: Xây dựng API User Management",
                         //     link: "/nodejs/api/lesson-8",
