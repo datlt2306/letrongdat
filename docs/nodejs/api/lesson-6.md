@@ -140,10 +140,8 @@ export const validateRequest = (schema, target = "body") => {
 
 Để code gọn gàng và dễ bảo trì, chúng ta sẽ tách `createProductSchema` và `updateProductSchema` vào một file riêng.
 
-**src/validation/productValidation.js**
-
-```javascript
-// filepath: /FPL-WEB503/src/validation/productValidation.js
+:::code-group
+```javascript [validation/productValidation.js]
 import Joi from "joi";
 
 // Schema tạo sản phẩm mới
@@ -183,15 +181,14 @@ export const updateProductSchema = createProductSchema.fork(
     (schema) => schema.optional()
 );
 ```
+:::
 
 #### Sử dụng schema và controller trong router
 
 Cập nhật router để sử dụng `createProductSchema` và `updateProductSchema`.
 
-**src/routers/products.js**
-
-```javascript
-// filepath: /FPL-WEB503/src/routers/products.js
+:::code-group
+```javascript [routers/products.js]
 import { Router } from "express";
 import { validateRequest } from "../middleware/validateRequest";
 import { createProductSchema, updateProductSchema } from "../validation/productValidation";
@@ -207,15 +204,14 @@ router.put("/:id", validateRequest(updateProductSchema), updateProduct);
 
 export default router;
 ```
-
+:::
 ## 4. Tổng hợp Code
 
 Dưới đây là tổng hợp các file code đã sử dụng trong bài học này.
 
 ::: code-group
 
-```javascript [src/middleware/validateRequest.js]
-// filepath: /FPL-WEB503/src/middleware/validateRequest.js
+```javascript [/middleware/validateRequest.js]
 import Joi from "joi";
 
 export const validateRequest = (schema, target = "body") => {
@@ -238,8 +234,7 @@ export const validateRequest = (schema, target = "body") => {
 };
 ```
 
-```javascript [src/validation/productValidation.js]
-// filepath: /FPL-WEB503/src/validation/productValidation.js
+```javascript [/validation/product.js]
 import Joi from "joi";
 
 // Schema tạo sản phẩm mới
@@ -280,8 +275,7 @@ export const updateProductSchema = createProductSchema.fork(
 );
 ```
 
-```javascript [src/routers/products.js]
-// filepath: /FPL-WEB503/src/routers/products.js
+```javascript [/routers/products.js]
 import { Router } from "express";
 import { validateRequest } from "../middleware/validateRequest";
 import { createProductSchema, updateProductSchema } from "../validation/productValidation";

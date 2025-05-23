@@ -69,11 +69,8 @@ src/
 ```
 
 ### Định nghĩa Schema và Model
-
-**src/models/Product.js**
-
-```javascript
-// filepath: FPL-WEB503/src/models/Product.js
+:::code-group
+```javascript [models/Product.js]
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
@@ -139,8 +136,7 @@ const Product = mongoose.model("Product", productSchema);
 
 export default Product;
 ```
-
-### Tách Controller để quản lý logic
+:::
 
 ## 3. Các bước cần làm trước khi viết Controller
 
@@ -154,7 +150,6 @@ Trước khi bắt tay vào viết code cho controller, chúng ta cần xác đ�
    - Nếu có sản phẩm, trả về danh sách sản phẩm.
    - Nếu xảy ra lỗi, trả về lỗi server.
 
----
 
 ### 3.2. Lấy chi tiết sản phẩm (`GET /api/products/:id`)
 
@@ -167,7 +162,6 @@ Trước khi bắt tay vào viết code cho controller, chúng ta cần xác đ�
    - Nếu không tìm thấy, trả về lỗi `404 Not Found`.
    - Nếu xảy ra lỗi, trả về lỗi server.
 
----
 
 ### 3.3. Thêm sản phẩm mới (`POST /api/products`)
 
@@ -182,7 +176,6 @@ Trước khi bắt tay vào viết code cho controller, chúng ta cần xác đ�
    - Nếu thành công, trả về thông tin sản phẩm vừa thêm.
    - Nếu có lỗi, trả về thông báo lỗi chi tiết.
 
----
 
 ### 3.4. Cập nhật sản phẩm (`PUT /api/products/:id`)
 
@@ -196,8 +189,6 @@ Trước khi bắt tay vào viết code cho controller, chúng ta cần xác đ�
    - Nếu không tìm thấy sản phẩm, trả về lỗi `404 Not Found`.
    - Nếu xảy ra lỗi, trả về thông báo lỗi chi tiết.
 
----
-
 ### 3.5. Xóa sản phẩm (`DELETE /api/products/:id`)
 
 1. **Nhận `id` từ URL**:  
@@ -209,16 +200,14 @@ Trước khi bắt tay vào viết code cho controller, chúng ta cần xác đ�
    - Nếu không tìm thấy sản phẩm, trả về lỗi `404 Not Found`.
    - Nếu xảy ra lỗi, trả về lỗi server.
 
----
 
 ## 4. Tách Controller để quản lý logic
 
 Sau khi xác định rõ các bước cần làm, chúng ta sẽ viết code cho các chức năng trong file controller.
 
-**src/controllers/productController.js**
+:::code-group
 
-```javascript
-// filepath: FPL-WEB503/src/controllers/productController.js
+```javascript [controllers/productController.js]
 import Product from "../models/Product";
 
 // Lấy danh sách sản phẩm
@@ -278,13 +267,11 @@ export const deleteProduct = async (req, res) => {
     }
 };
 ```
-
+:::
 ### Sử dụng Controller trong Router
 
-**src/routers/products.js**
-
-```javascript
-// filepath: FPL-WEB503/src/routers/products.js
+:::code-group
+```javascript [routers/products.js]
 import { Router } from "express";
 import {
     getProducts,
@@ -313,15 +300,13 @@ routeProduct.delete("/:id", deleteProduct);
 
 export default routeProduct;
 ```
-
+:::
 ### Import router vào file `routers/index.js`
 
 Để sử dụng các router đã tạo, bạn cần import chúng vào file `routers/index.js` và cấu hình như sau:
 
-**src/routers/index.js**
-
-```javascript
-// filepath: FPL-WEB503/src/routers/index.js
+:::code-group
+```javascript routers/index.js
 import { Router } from "express";
 import routePost from "./posts";
 import routeProduct from "./products";
@@ -336,8 +321,7 @@ router.use("/products", routeProduct);
 
 export default router;
 ```
-
----
+:::
 
 ## 4. Test API với Postman và Dữ liệu Fake
 
@@ -386,7 +370,6 @@ Dưới đây là một số dữ liệu mẫu để kiểm tra API:
 }
 ```
 
----
 
 #### Lấy danh sách sản phẩm (`GET /api/products`)
 
@@ -415,7 +398,6 @@ Dưới đây là một số dữ liệu mẫu để kiểm tra API:
 ]
 ```
 
----
 
 #### Lấy chi tiết sản phẩm (`GET /api/products/:id`)
 
@@ -442,7 +424,6 @@ Dưới đây là một số dữ liệu mẫu để kiểm tra API:
 }
 ```
 
----
 
 #### Cập nhật sản phẩm (`PUT /api/products/:id`)
 
@@ -478,7 +459,6 @@ Dưới đây là một số dữ liệu mẫu để kiểm tra API:
 }
 ```
 
----
 
 #### Xóa sản phẩm (`DELETE /api/products/:id`)
 
@@ -492,7 +472,6 @@ Dưới đây là một số dữ liệu mẫu để kiểm tra API:
 }
 ```
 
----
 
 ## 5. Tóm tắt
 

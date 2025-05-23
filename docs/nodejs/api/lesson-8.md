@@ -221,7 +221,7 @@ export default router;
 :::
 ## 3. Tổng hợp Code
 ::: code-group
-```javascript [src/controllers/authController.js]
+```javascript [controllers/auth.js]
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
@@ -267,7 +267,7 @@ export const getMe = async (req, res) => {
   }
 };
 ```
-```javascript [src/routers/auth.js]
+```javascript [routers/auth.js]
 import express from "express";
 import { signup, login, getMe } from "../controllers/authController.js";
 import { verifyJWT } from "../middlewares/authMiddleware.js";
