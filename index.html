@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .todo-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .todo-header {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .todo-header__input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .todo-header__button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .todo-header__button:hover {
+            background-color: #0056b3;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .todo-item--completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .todo-item__text {
+            flex: 1;
+        }
+
+        .todo-item__actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .todo-item__button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .todo-item__button--update {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .todo-item__button--update:hover {
+            background-color: #e0a800;
+        }
+
+        .todo-item__button--delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .todo-item__button--delete:hover {
+            background-color: #c82333;
+        }
+
+        .todo-item__button--save {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .todo-item__button--save:hover {
+            background-color: #218838;
+        }
+
+        .todo-item__button--cancel {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .todo-item__button--cancel:hover {
+            background-color: #5a6268;
+        }
+
+        .todo-item__input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+        }
+        .message--success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message--error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .requirements {
+            margin-bottom: 20px;
+        }
+
+        .requirements h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .requirements ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .requirements li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <!-- Requirements Section -->
+        <div class="requirements">
+            <h2>Yêu cầu khi viết JavaScript cần clean</h2>
+            <ul>
+                <li>**Hiểu rõ bài toán**: Trước khi viết code, hãy đảm bảo em hiểu rõ yêu cầu và mục tiêu của bài toán.</li>
+                <li>**Chia nhỏ bài toán**: Phân chia bài toán thành các chức năng nhỏ, dễ quản lý như thêm, xóa, cập nhật công việc.</li>
+                <li>**Viết code dễ đọc**: Sử dụng tên biến và hàm rõ ràng, mô tả đúng chức năng. Ví dụ: `addTodo`, `deleteTodo`.</li>
+                <li>**Tránh lặp code**: Nếu một đoạn code được sử dụng nhiều lần, hãy tách nó thành một hàm riêng.</li>
+                <li>**Kiểm tra dữ liệu đầu vào**: Đảm bảo dữ liệu đầu vào hợp lệ trước khi xử lý, ví dụ: không cho phép thêm công việc trống.</li>
+                <li>**Sử dụng AI một cách có trách nhiệm**: AI có thể hỗ trợ viết code, nhưng em cần hiểu rõ code được tạo ra để đảm bảo nó phù hợp với yêu cầu.</li>
+                <li>**Kiểm tra và tối ưu hóa**: Sau khi hoàn thành, kiểm tra toàn bộ ứng dụng và tối ưu hóa code nếu cần.</li>
+            </ul>
+        </div>
+
+        <!-- Message Display -->
+        <div id="message" class="message"></div>
+
+        <div class="todo-header">
+            <input 
+                type="text" 
+                id="todo-input" 
+                class="todo-header__input" 
+                placeholder="Nhập công việc mới..." 
+            />
+            <button id="add-todo-btn" class="todo-header__button">Thêm</button>
+        </div>
+        <ul id="todo-list" class="todo-list">
+            <!-- Static Todo Items -->
+            <li class="todo-item">
+                <span class="todo-item__text">Học JavaScript</span>
+                <div class="todo-item__actions">
+                    <button class="todo-item__button todo-item__button--update">Cập nhật</button>
+                    <button class="todo-item__button todo-item__button--delete">Xóa</button>
+                </div>
+            </li>
+            <li class="todo-item todo-item--completed">
+                <span class="todo-item__text">Làm bài tập</span>
+                <div class="todo-item__actions">
+                    <button class="todo-item__button todo-item__button--update">Cập nhật</button>
+                    <button class="todo-item__button todo-item__button--delete">Xóa</button>
+                </div>
+            </li>
+            <li class="todo-item">
+                <input 
+                    type="text" 
+                    value="Đọc sách" 
+                    class="todo-item__input"
+                />
+                <div class="todo-item__actions">
+                    <button class="todo-item__button todo-item__button--save">Lưu</button>
+                    <button class="todo-item__button todo-item__button--cancel">Hủy</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

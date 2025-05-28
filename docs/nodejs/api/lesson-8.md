@@ -76,10 +76,14 @@ export const User = mongoose.model("User", userSchema);
 > - **`name`**: Tên người dùng, bắt buộc và được trim để loại bỏ khoảng trắng thừa.  
 > - **`email`**: Email người dùng, bắt buộc, duy nhất, và phải hợp lệ.  
 > - **`password`**: Mật khẩu, bắt buộc, tối thiểu 6 ký tự, không trả về trong query.  
+> - **`passwordChangedAt`**: Thời điểm mật khẩu được thay đổi.
 > - **`role`**: Vai trò của người dùng, mặc định là `customer`.  
 > - **`phone`**: Số điện thoại, phải có đúng 10 chữ số.  
 > - **`addresses`**: Danh sách địa chỉ của người dùng, mỗi địa chỉ có `street`, `city`, và `isDefault`.  
+> - **`avatar`**: Đường dẫn đến ảnh đại diện của người dùng.
+> - **`active`**: Trạng thái hoạt động của tài khoản, mặc định là `true`, không trả về trong query.
 > - **`timestamps`**: Tự động thêm `createdAt` và `updatedAt`.
+> - **`versionKey: false`**: Loại bỏ trường `__v` từ MongoDB.
 
 
 ## 2. Các bước cần làm trước khi viết Controller
@@ -89,12 +93,12 @@ Trước khi bắt tay vào viết code cho controller, chúng ta cần xác đ�
 ### 2.1. Đăng ký tài khoản (`signup`)
 
 1. **Nhận dữ liệu từ client**:  
-   - Các trường cần nhận: `name`, `email`, `password`, `phone`, `role`.
-2. **Kiểm tra dữ liệu đầu vào**:  
+  - Các trường cần nhận: `name`, `email`, `password`, `phone`, `role`, `addresses`, `avatar`.
+  2. **Kiểm tra dữ liệu đầu vào**:  
    - Đảm bảo tất cả các trường bắt buộc đều có giá trị.
    - Kiểm tra định dạng email và số điện thoại.
 3. **Mã hóa mật khẩu**:  
-   - Sử dụng thư viện `bcrypt` để mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu.
+   - Sử dụng thư viện `bcryptjs` để mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu.
 4. **Lưu người dùng vào cơ sở dữ liệu**:  
    - Sử dụng model `User` để lưu thông tin người dùng.
 5. **Trả về phản hồi**:  
@@ -102,7 +106,7 @@ Trước khi bắt tay vào viết code cho controller, chúng ta cần xác đ�
    - Nếu có lỗi, trả về thông báo lỗi chi tiết.
 ::: code-group
 ```javascript [src/controllers/authController.js]
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { User } from "../models/userModel.js";
 
 export const signup = async (req, res) => {
@@ -174,8 +178,8 @@ export const login = async (req, res) => {
    - Middleware `verifyJWT` sẽ gắn thông tin người dùng vào `req.user`.
 2. **Trả về thông tin người dùng**:  
    - Trả về các thông tin như `email`, `role`, và các trường khác nếu cần.
+   - Nếu không tìm thấy thông tin người dùng, trả về lỗi 404.
 
-#### Function cho phần `getMe`
 ::: code-group
 ```javascript [src/controllers/authController.js]
 export const getMe = async (req, res) => {
@@ -195,7 +199,7 @@ export const getMe = async (req, res) => {
 
 :::
 
-## 4. Router: Định nghĩa các route cho Auth
+## 3. Router: Định nghĩa các route cho Auth
 
 Dưới đây là file router để định nghĩa các route liên quan đến Auth như `signup`, `login`, và `getMe`.
 
@@ -219,9 +223,126 @@ router.get("/me", verifyJWT, getMe);
 export default router;
 ```
 :::
-## 3. Tổng hợp Code
+
+## 4. Middleware: Validate dữ liệu đầu vào
+
+Middleware `validateRequest` sẽ giúp kiểm tra dữ liệu từ các phần của request (`body`, `params`, hoặc `query`) dựa trên schema được định nghĩa bằng Joi.
+
 ::: code-group
-```javascript [controllers/auth.js]
+```javascript [src/middlewares/validateRequest.js]
+import Joi from "joi";
+
+export const validateRequest = (schema, target = "body") => {
+  return (req, res, next) => {
+    const { error, value } = schema.validate(req[target], {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+
+    if (error) {
+      return res.status(400).json({
+        error: "Dữ liệu không hợp lệ",
+        details: error.details.map((err) => err.message),
+      });
+    }
+
+    req[target] = value;
+    next();
+  };
+};
+```
+:::
+
+
+## 5. Schema: Định nghĩa các schema cho Signup và Signin
+
+Dưới đây là các schema được định nghĩa bằng Joi để kiểm tra dữ liệu đầu vào cho các API `signup` và `signin`.
+
+::: code-group
+```javascript [src/validation/authValidation.js]
+import Joi from "joi";
+
+// Schema cho Signup
+export const signupSchema = Joi.object({
+  name: Joi.string().required().max(100).messages({
+    "string.base": "Tên phải là chuỗi",
+    "string.empty": "Tên không được để trống",
+    "string.max": "Tên không được vượt quá {#limit} ký tự",
+    "any.required": "Tên là bắt buộc",
+  }),
+  email: Joi.string().email().required().messages({
+    "string.email": "Email không hợp lệ",
+    "string.empty": "Email không được để trống",
+    "any.required": "Email là bắt buộc",
+  }),
+  password: Joi.string().required().min(6).messages({
+    "string.min": "Mật khẩu phải có ít nhất {#limit} ký tự",
+    "string.empty": "Mật khẩu không được để trống",
+    "any.required": "Mật khẩu là bắt buộc",
+  }),
+  phone: Joi.string().pattern(/^\d{10}$/).messages({
+    "string.pattern.base": "Số điện thoại phải có đúng 10 chữ số",
+  }),
+  role: Joi.string().valid("customer", "staff", "admin").default("customer"),
+  addresses: Joi.array().items(
+    Joi.object({
+      street: Joi.string().required(),
+      city: Joi.string().required(),
+      isDefault: Joi.boolean().default(false),
+    })
+  ),
+  avatar: Joi.string().uri().optional(),
+});
+
+// Schema cho Signin
+export const signinSchema = Joi.object({
+  email: Joi.string().email().required().messages({
+    "string.email": "Email không hợp lệ",
+    "string.empty": "Email không được để trống",
+    "any.required": "Email là bắt buộc",
+  }),
+  password: Joi.string().required().messages({
+    "string.empty": "Mật khẩu không được để trống",
+    "any.required": "Mật khẩu là bắt buộc",
+  }),
+});
+```
+:::
+
+## 6. Cập nhật Router để sử dụng Middleware Validate
+
+Cập nhật router để sử dụng middleware `validateRequest` với các schema `signupSchema` và `signinSchema`.
+
+::: code-group
+```javascript [src/routers/auth.js]
+import express from "express";
+import { signup, login, getMe } from "../controllers/authController.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { signupSchema, signinSchema } from "../validation/authValidation.js";
+import { verifyJWT } from "../middlewares/authMiddleware.js";
+
+const router = express.Router();
+
+// Route đăng ký
+router.post("/signup", validateRequest(signupSchema), signup);
+
+// Route đăng nhập
+router.post("/login", validateRequest(signinSchema), login);
+
+// Route lấy thông tin người dùng hiện tại
+router.get("/me", verifyJWT, getMe);
+
+export default router;
+```
+:::
+
+
+## 7. Tổng hợp Code
+
+Dưới đây là tổng hợp các file code đã sử dụng trong bài học này.
+
+::: code-group
+```javascript [src/controllers/authController.js]
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
@@ -267,26 +388,103 @@ export const getMe = async (req, res) => {
   }
 };
 ```
-```javascript [routers/auth.js]
+
+```javascript [src/routers/auth.js]
 import express from "express";
 import { signup, login, getMe } from "../controllers/authController.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { signupSchema, signinSchema } from "../validation/authValidation.js";
 import { verifyJWT } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 // Route đăng ký
-router.post("/signup", signup);
+router.post("/signup", validateRequest(signupSchema), signup);
 
 // Route đăng nhập
-router.post("/login", login);
+router.post("/login", validateRequest(signinSchema), login);
 
 // Route lấy thông tin người dùng hiện tại
 router.get("/me", verifyJWT, getMe);
 
 export default router;
 ```
+
+```javascript [src/middlewares/validateRequest.js]
+import Joi from "joi";
+
+export const validateRequest = (schema, target = "body") => {
+  return (req, res, next) => {
+    const { error, value } = schema.validate(req[target], {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+
+    if (error) {
+      return res.status(400).json({
+        error: "Dữ liệu không hợp lệ",
+        details: error.details.map((err) => err.message),
+      });
+    }
+
+    req[target] = value;
+    next();
+  };
+};
+```
+
+```javascript [src/validation/authValidation.js]
+import Joi from "joi";
+
+// Schema cho Signup
+export const signupSchema = Joi.object({
+  name: Joi.string().required().max(100).messages({
+    "string.base": "Tên phải là chuỗi",
+    "string.empty": "Tên không được để trống",
+    "string.max": "Tên không được vượt quá {#limit} ký tự",
+    "any.required": "Tên là bắt buộc",
+  }),
+  email: Joi.string().email().required().messages({
+    "string.email": "Email không hợp lệ",
+    "string.empty": "Email không được để trống",
+    "any.required": "Email là bắt buộc",
+  }),
+  password: Joi.string().required().min(6).messages({
+    "string.min": "Mật khẩu phải có ít nhất {#limit} ký tự",
+    "string.empty": "Mật khẩu không được để trống",
+    "any.required": "Mật khẩu là bắt buộc",
+  }),
+  phone: Joi.string().pattern(/^\d{10}$/).messages({
+    "string.pattern.base": "Số điện thoại phải có đúng 10 chữ số",
+  }),
+  role: Joi.string().valid("customer", "staff", "admin").default("customer"),
+  addresses: Joi.array().items(
+    Joi.object({
+      street: Joi.string().required(),
+      city: Joi.string().required(),
+      isDefault: Joi.boolean().default(false),
+    })
+  ),
+  avatar: Joi.string().uri().optional(),
+});
+
+// Schema cho Signin
+export const signinSchema = Joi.object({
+  email: Joi.string().email().required().messages({
+    "string.email": "Email không hợp lệ",
+    "string.empty": "Email không được để trống",
+    "any.required": "Email là bắt buộc",
+  }),
+  password: Joi.string().required().messages({
+    "string.empty": "Mật khẩu không được để trống",
+    "any.required": "Mật khẩu là bắt buộc",
+  }),
+});
+```
 :::
-## 5. Kết luận
+
+
+## 8. Kết luận
 
 Qua bài học này, các em đã được hướng dẫn cách xây dựng chức năng **Đăng ký**, **Đăng nhập**, và **Lấy thông tin người dùng hiện tại** với **JWT**. Chúng ta đã đi qua các bước từ định nghĩa **Model**, viết **Controller**, đến thiết lập **Router**. Đây là một quy trình chuẩn để xây dựng các API bảo mật và hiệu quả.
 
@@ -294,3 +492,4 @@ Hãy áp dụng những kiến thức này vào các dự án thực tế của 
 
 **Chúc các em học tốt!** ✨  
 — **Thầy Đạt 🧡**
+
